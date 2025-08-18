@@ -62,4 +62,76 @@ header h1 { font-size: 2rem; color: #fff; }
 }
 @keyframes shoot {
   0%, 94% { opacity: 0; }
-  95
+  95% { left: -20%; top: 15%; opacity: 1; }
+  98% { left: 120%; top: 30%; opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Clouds drifting slowly */
+.cloud {
+  position: absolute; top: 15%; width: 150px; height: 60px;
+  background: #fff3; border-radius: 50%; filter: blur(5px);
+  z-index: 1;
+}
+.cloud1 { left: -200px; animation: cloud-move 90s linear infinite; }
+.cloud2 { top: 25%; left: -300px; animation: cloud-move 120s linear infinite; }
+@keyframes cloud-move { from { transform: translateX(0); } to { transform: translateX(200vw); } }
+
+/* Ground */
+.ground {
+  position: absolute; bottom: 0; left: 0; width: 100%; height: 30%;
+  background: #2c742f; z-index: 1;
+}
+
+/* Bed aligned (adjusted for emoji transparency) */
+.bed {
+  position: absolute;
+  bottom: 25%;              /* <— visually sits on the grass line */
+  left: 50%; transform: translateX(-50%);
+  font-size: 10vw; z-index: 2;
+}
+
+/* Sheep + container */
+#sheep-container { position: absolute; inset: 0; z-index: 3; }
+
+.sheep {
+  position: absolute; bottom: 0; left: -20%;
+  font-size: 10vw; transform: scaleX(-1);
+  animation: jump 5s linear forwards;
+  z-index: 3;
+}
+/* Higher arc; apex aligned to bed center */
+@keyframes jump {
+  0%   { left: -20%; bottom: 0; }
+  50%  { left: 49%;  bottom: 45%; }   /* 49% nudges apex to bed center */
+  100% { left: 120%; bottom: 0; }
+}
+
+/* Star trail (behind sheep, more density) */
+.trail {
+  position: absolute; font-size: 1.1rem; opacity: 0.95;
+  animation: puff 1.6s forwards; pointer-events: none; z-index: 2;
+}
+@keyframes puff {
+  from { opacity: 0.95; transform: translateY(0) scale(1); }
+  to   { opacity: 0;    transform: translateY(-24px) scale(1.5); }
+}
+
+/* HUD counter (restored) */
+#hud-counter {
+  position: absolute; top: 1rem; right: 1rem;
+  background: rgba(0,0,0,0.5);
+  padding: 0.5rem 1rem; border-radius: 10px;
+  font-size: 1.2rem; font-weight: 700; border: 2px solid #fff;
+  transition: transform 0.18s ease;
+  z-index: 10;
+}
+#hud-counter.bump { transform: scale(1.18); }
+
+/* Controls */
+#controls { text-align: center; padding: 1rem; background: #111; }
+#restart {
+  padding: 0.5rem 1.2rem; font-size: 1rem; font-weight: 700;
+  color: #111; background: #f1f1f1; border: none; border-radius: 6px; cursor: pointer;
+}
+#restart:hover { background: #ddd; }
