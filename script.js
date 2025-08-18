@@ -9,27 +9,26 @@ let count = 0;
 function spawnSheep() {
   const sheep = document.createElement('span');
   sheep.className = 'sheep';
-  sheep.textContent = Math.random() > 0.5 ? '🐑' : '🐏'; // random sheep/ram
+  sheep.textContent = Math.random() > 0.5 ? '🐑' : '🐏'; // random sheep
   sheepContainer.appendChild(sheep);
 
-  // Trail puff effect
+  // Trail puffs under hooves
   const trailInterval = setInterval(() => {
-    const rect = sheep.getBoundingClientRect();
     if (!document.body.contains(sheep)) return clearInterval(trailInterval);
 
     const puff = document.createElement('span');
     puff.className = 'trail';
     puff.textContent = '✨';
     puff.style.left = sheep.offsetLeft + 'px';
-    puff.style.bottom = sheep.style.bottom || '30%';
+    puff.style.bottom = '0';
     sheepContainer.appendChild(puff);
 
-    setTimeout(() => puff.remove(), 1000);
-  }, 500);
+    setTimeout(() => puff.remove(), 1500);
+  }, 800); // slower trail interval
 
   sheep.addEventListener('animationend', () => {
     sheep.remove();
-    spawnSheep(); // spawn the next sheep
+    spawnSheep(); // next sheep
     incrementCounter();
   });
 }
