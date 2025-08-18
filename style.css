@@ -1,4 +1,4 @@
-/* Basic resets and font setting */* { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Fredoka One', sans-serif;
@@ -28,14 +28,14 @@ header h1 { font-size: 2rem; color: #fff; }
   position: absolute;
   top: 5%; right: 10%;
   font-size: 8vw;
-  animation: glow 5s infinite alternate;
+  animation: glow 6s infinite alternate;
 }
 @keyframes glow {
   from { filter: drop-shadow(0 0 5px #fff); }
   to   { filter: drop-shadow(0 0 20px #fff); }
 }
 
-/* Stars */
+/* Stars drifting + twinkling */
 .stars {
   position: absolute;
   width: 100%; height: 70%;
@@ -46,27 +46,34 @@ header h1 { font-size: 2rem; color: #fff; }
     radial-gradient(2px 2px at 80% 40%, #fff, transparent),
     radial-gradient(1px 1px at 30% 70%, #fff, transparent),
     radial-gradient(2px 2px at 70% 80%, #fff, transparent);
-  animation: twinkle 4s infinite alternate;
+  animation: drift 120s linear infinite, twinkle 6s ease-in-out infinite alternate;
 }
-@keyframes twinkle { from { opacity: 0.6; } to { opacity: 1; } }
+@keyframes drift {
+  from { background-position: 0 0; }
+  to   { background-position: 200px 0; } /* sideways drift */
+}
+@keyframes twinkle {
+  from { opacity: 0.7; }
+  to   { opacity: 1; }
+}
 
-/* Shooting star */
+/* Shooting star (rare + slow) */
 .shooting-star {
   position: absolute;
-  top: 10%; left: -20%;
-  width: 100px; height: 2px;
+  top: 15%; left: -20%;
+  width: 120px; height: 2px;
   background: linear-gradient(90deg, white, transparent);
   opacity: 0;
-  animation: shoot 15s infinite;
+  animation: shoot 30s infinite;
 }
 @keyframes shoot {
-  0% { left: -20%; top: 10%; opacity: 0; }
-  5% { left: 120%; top: 20%; opacity: 1; }
-  10% { opacity: 0; }
+  0%, 94% { opacity: 0; }
+  95% { left: -20%; top: 15%; opacity: 1; }
+  98% { left: 120%; top: 30%; opacity: 0; }
   100% { opacity: 0; }
 }
 
-/* Clouds */
+/* Clouds drifting slowly */
 .cloud {
   position: absolute;
   top: 15%; width: 150px; height: 60px;
@@ -74,8 +81,8 @@ header h1 { font-size: 2rem; color: #fff; }
   border-radius: 50%;
   filter: blur(5px);
 }
-.cloud1 { left: -200px; animation: cloud-move 60s linear infinite; }
-.cloud2 { top: 25%; left: -300px; animation: cloud-move 80s linear infinite; }
+.cloud1 { left: -200px; animation: cloud-move 90s linear infinite; }
+.cloud2 { top: 25%; left: -300px; animation: cloud-move 120s linear infinite; }
 @keyframes cloud-move {
   from { transform: translateX(0); }
   to { transform: translateX(200vw); }
@@ -89,43 +96,28 @@ header h1 { font-size: 2rem; color: #fff; }
   background: #2c742f;
 }
 
-/* Bed */
+/* Bed (flush with ground) */
 .bed {
   position: absolute;
-  bottom: 30%;
+  bottom: 0;   /* sits directly on ground */
   left: 50%;
   transform: translateX(-50%);
   font-size: 10vw;
 }
 
-/* Zzz floating text */
-.zzz {
-  position: absolute;
-  bottom: 55%;
-  left: 55%;
-  font-size: 2rem;
-  color: #fff;
-  animation: zzzFloat 3s infinite;
-}
-@keyframes zzzFloat {
-  0%   { opacity: 0; transform: translateY(0); }
-  50%  { opacity: 1; transform: translateY(-20px); }
-  100% { opacity: 0; transform: translateY(-40px); }
-}
-
-/* Sheep (spawned dynamically) */
+/* Sheep */
 .sheep {
   position: absolute;
-  bottom: 30%;
+  bottom: 0;
   left: -20%;
   font-size: 10vw;
   transform: scaleX(-1);
-  animation: jump 3s linear forwards;
+  animation: jump 5s linear forwards;
 }
 @keyframes jump {
-  0%   { left: -20%; bottom: 30%; }
-  50%  { left: 50%; bottom: 55%; }
-  100% { left: 120%; bottom: 30%; }
+  0%   { left: -20%; bottom: 0; }
+  50%  { left: 50%; bottom: 25%; }
+  100% { left: 120%; bottom: 0; }
 }
 
 /* Sheep trail */
@@ -133,7 +125,7 @@ header h1 { font-size: 2rem; color: #fff; }
   position: absolute;
   font-size: 1rem;
   opacity: 0.8;
-  animation: puff 1s forwards;
+  animation: puff 1.5s forwards;
 }
 @keyframes puff {
   from { opacity: 0.8; transform: translateY(0) scale(1); }
@@ -171,4 +163,3 @@ header h1 { font-size: 2rem; color: #fff; }
   cursor: pointer;
 }
 #restart:hover { background: #ddd; }
-
