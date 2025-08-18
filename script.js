@@ -12,7 +12,7 @@ function spawnSheep() {
   sheep.textContent = Math.random() > 0.5 ? '🐑' : '🐏'; // random sheep
   sheepContainer.appendChild(sheep);
 
-  // Trail puffs under hooves
+  // Trail puffs follow sheep position
   const trailInterval = setInterval(() => {
     if (!document.body.contains(sheep)) return clearInterval(trailInterval);
 
@@ -20,11 +20,11 @@ function spawnSheep() {
     puff.className = 'trail';
     puff.textContent = '✨';
     puff.style.left = sheep.offsetLeft + 'px';
-    puff.style.bottom = '0';
+    puff.style.top = sheep.offsetTop + 40 + 'px'; // follow sheep
     sheepContainer.appendChild(puff);
 
     setTimeout(() => puff.remove(), 1500);
-  }, 800); // slower trail interval
+  }, 1000);
 
   sheep.addEventListener('animationend', () => {
     sheep.remove();
