@@ -1,23 +1,174 @@
-// Select relevant elements
-const countSpan = document.getElementById('count');
-const sheep = document.querySelector('.sheep');
-const restartBtn = document.getElementById('restart');
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-let count = 0;  // current sheep count
+body {
+  font-family: 'Fredoka One', sans-serif;
+  background: #0a0f2c;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-// Each time a jump animation iteration finishes, increment the counter
-sheep.addEventListener('animationiteration', () => {
-  count++;
-  countSpan.textContent = count;
-});
+header {
+  text-align: center;
+  padding: 1rem;
+}
+header h1 { font-size: 2rem; color: #fff; }
 
-// When the last animation iteration ends, increment the counter for the final sheep
-sheep.addEventListener('animationend', () => {
-  count++;
-  countSpan.textContent = count;
-});
+/* Scene */
+.scene {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0a0f2c 0%, #1b2745 70%, #2c742f 70%, #2c742f 100%);
+}
 
-// Restart button reloads the page to reset the animation and counter
-restartBtn.addEventListener('click', () => {
-  location.reload();
-});
+/* Moon */
+.moon {
+  position: absolute;
+  top: 5%; right: 10%;
+  font-size: 8vw;
+  animation: glow 5s infinite alternate;
+}
+@keyframes glow {
+  from { filter: drop-shadow(0 0 5px #fff); }
+  to   { filter: drop-shadow(0 0 20px #fff); }
+}
+
+/* Stars */
+.stars {
+  position: absolute;
+  width: 100%; height: 70%;
+  top: 0; left: 0;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 50% 20%, #fff, transparent),
+    radial-gradient(2px 2px at 80% 40%, #fff, transparent),
+    radial-gradient(1px 1px at 30% 70%, #fff, transparent),
+    radial-gradient(2px 2px at 70% 80%, #fff, transparent);
+  animation: twinkle 4s infinite alternate;
+}
+@keyframes twinkle { from { opacity: 0.6; } to { opacity: 1; } }
+
+/* Shooting star */
+.shooting-star {
+  position: absolute;
+  top: 10%; left: -20%;
+  width: 100px; height: 2px;
+  background: linear-gradient(90deg, white, transparent);
+  opacity: 0;
+  animation: shoot 15s infinite;
+}
+@keyframes shoot {
+  0% { left: -20%; top: 10%; opacity: 0; }
+  5% { left: 120%; top: 20%; opacity: 1; }
+  10% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Clouds */
+.cloud {
+  position: absolute;
+  top: 15%; width: 150px; height: 60px;
+  background: #fff3;
+  border-radius: 50%;
+  filter: blur(5px);
+}
+.cloud1 { left: -200px; animation: cloud-move 60s linear infinite; }
+.cloud2 { top: 25%; left: -300px; animation: cloud-move 80s linear infinite; }
+@keyframes cloud-move {
+  from { transform: translateX(0); }
+  to { transform: translateX(200vw); }
+}
+
+/* Ground */
+.ground {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 30%;
+  background: #2c742f;
+}
+
+/* Bed */
+.bed {
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10vw;
+}
+
+/* Zzz floating text */
+.zzz {
+  position: absolute;
+  bottom: 55%;
+  left: 55%;
+  font-size: 2rem;
+  color: #fff;
+  animation: zzzFloat 3s infinite;
+}
+@keyframes zzzFloat {
+  0%   { opacity: 0; transform: translateY(0); }
+  50%  { opacity: 1; transform: translateY(-20px); }
+  100% { opacity: 0; transform: translateY(-40px); }
+}
+
+/* Sheep (spawned dynamically) */
+.sheep {
+  position: absolute;
+  bottom: 30%;
+  left: -20%;
+  font-size: 10vw;
+  transform: scaleX(-1);
+  animation: jump 3s linear forwards;
+}
+@keyframes jump {
+  0%   { left: -20%; bottom: 30%; }
+  50%  { left: 50%; bottom: 55%; }
+  100% { left: 120%; bottom: 30%; }
+}
+
+/* Sheep trail */
+.trail {
+  position: absolute;
+  font-size: 1rem;
+  opacity: 0.8;
+  animation: puff 1s forwards;
+}
+@keyframes puff {
+  from { opacity: 0.8; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(-20px) scale(1.5); }
+}
+
+/* HUD counter */
+#hud-counter {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  background: rgba(0,0,0,0.5);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: 1px solid #fff;
+  transition: transform 0.2s;
+}
+#hud-counter.bump { transform: scale(1.3); }
+
+/* Controls */
+#controls {
+  text-align: center;
+  padding: 1rem;
+  background: #111;
+}
+#restart {
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #111;
+  background: #f1f1f1;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#restart:hover { background: #ddd; }
+
