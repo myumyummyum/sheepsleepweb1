@@ -1,0 +1,117 @@
+/* Basic resets and font setting */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Fredoka One', sans-serif;
+  background: #68C7EC; /* Sky blue background color for the page */
+  color: #333;
+}
+header {
+  text-align: center;
+  padding: 1rem;
+}
+header h1 {
+  font-size: 2rem;
+}
+
+/* Main scene styles */
+.scene {
+  position: relative;
+  width: 100%;
+  height: 90vh;               /* Fill most of viewport height for animation */
+  overflow: hidden;           /* Hide sheep when it goes off-screen */
+  background: linear-gradient(180deg, #68C7EC 0%, #68C7EC 90%, #92C749 90%, #92C749 100%);
+  /* The background is a vertical gradient:
+     - Sky blue (#68C7EC) from top to 90%,
+     - Green (#92C749) at the bottom 10% to represent ground */
+}
+.ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10%;
+  background: #92C749;        /* Green ground at bottom of scene */
+}
+
+/* Bed styling */
+.bed {
+  position: absolute;
+  bottom: 10%;                /* Position the bed on top of the ground */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10vw;            /* Make the bed emoji size responsive to viewport width */
+}
+
+/* Sheep styling */
+.sheep {
+  position: absolute;
+  bottom: 10%;                /* start on the ground */
+  left: -20%;                 /* start slightly off left side of screen */
+  font-size: 10vw;            /* responsive size for the sheep emoji */
+  /* Animation: jump 100 times (up to sheep #100), then stop */
+  animation: jump 3s 0s 100 forwards;
+  /* 
+     - 3s duration per jump 
+     - 0s delay 
+     - 100 iterations (to count up to 100 sheep) 
+     - forwards: keep final state at end of animation 
+  */
+}
+
+/* Keyframes for the sheep's jump animation */
+@keyframes jump {
+  /* Starting position (off-screen to the left, on the ground) */
+  0% {
+    left: -20%;
+    bottom: 10%;
+    animation-timing-function: ease-out;
+  }
+  /* Mid-jump (above the bed at 50% progress, peak height) */
+  50% {
+    left: 50%;
+    bottom: 40%;
+    animation-timing-function: ease-in;
+  }
+  /* Ending position (off-screen to the right, back on the ground) */
+  100% {
+    left: 120%;
+    bottom: 10%;
+  }
+}
+
+/* Counter and controls section */
+#controls {
+  text-align: center;
+  padding: 1rem 0;
+  background: #fdfdfd;
+}
+#counter {
+  display: inline-block;
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  background: #ffffffcc;      /* white background with slight transparency */
+  border: 2px solid #555;
+  border-radius: 8px;
+}
+#restart {
+  display: inline-block;
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background: #68C7EC;        /* blue button matching sky color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#restart:hover {
+  background: #5ab0d1;        /* slight hover effect on button */
+}
