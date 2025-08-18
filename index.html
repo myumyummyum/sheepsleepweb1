@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sheep Sleep Counter</title>
+  <!-- Link to external CSS stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- Cute Google Font for a playful style -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- Header with title -->
+  <header>
+    <h1>Sheep Sleep Counter</h1>
+  </header>
+
+  <!-- Main scene container for animation -->
+  <main class="scene">
+    <!-- Ground (floor) at the bottom of the scene -->
+    <div class="ground"></div>
+    <!-- Bed emoji (acts as the obstacle for sheep to jump over) -->
+    <span class="bed">🛏️</span>
+    <!-- Sheep emoji (the jumping sheep) -->
+    <span class="sheep">🐑</span>
+  </main>
+
+  <!-- Counter and restart controls below the scene -->
+  <section id="controls">
+    <div id="counter">Sheep Count: <span id="count">0</span></div>
+    <button id="restart">Restart</button>
+  </section>
+
+  <!-- Include the JavaScript file at the end of body -->
+  <script src="script.js"></script>
+</body>
+</html>
