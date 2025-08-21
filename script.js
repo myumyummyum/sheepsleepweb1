@@ -50,7 +50,20 @@ function incrementCounter() {
   setTimeout(() => counterHud.classList.remove('bump'), 180);
 }
 
-restartBtn.addEventListener('click', () => location.reload());
+// --- UPDATED restart button --- //
+restartBtn.addEventListener('click', () => {
+  // ensure GTM dataLayer exists
+  window.dataLayer = window.dataLayer || [];
+
+  // send custom event with current sheep count
+  window.dataLayer.push({
+    event: 'sheep_restart',
+    sheep_count: count
+  });
+
+  // reload as before
+  location.reload();
+});
 
 // Kickoff
 spawnSheep();
